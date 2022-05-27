@@ -1,0 +1,31 @@
+{
+  "name": "back-end",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "apollo-server": "^3.8.1",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.0.1",
+    "graphql": "^16.5.0",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^8.7.3",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.20.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-0": "^6.24.1"
+  },
+  "scripts": {
+    "migrate": " sequelize db:migrate",
+    "dev": "nodemon src/server --exec babel-node -e js",
+    "start": "node src/index",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "seed": "node src/SQL/seed"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
