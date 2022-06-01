@@ -1,10 +1,12 @@
 const { findUserBy } = require("../SQL/user");
+const getLocationViaIP = require("../Util/IpFetch");
 const bcrypt = require("bcryptjs");
 const jsonwebtoken = require("jsonwebtoken");
 require("dotenv").config();
 
-async function login(_, { email, password }) {
+async function login(_, { email, password }, { ip }) {
   try {
+    getLocationViaIP(ip);
     const user = await findUserBy("email", email);
     if (!user) {
       throw new Error("No user with that email");

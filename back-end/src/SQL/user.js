@@ -45,28 +45,44 @@ async function getUsers() {
 }
 
 async function createUser(user) {
-  console.log(user.password);
   let newUser;
-  await sequelize
+  let sqlRes = await sequelize
     .query(
       `
-        INSERT INTO users (first_name, last_name, email,password)
-        VALUES ('${user.firstname}','${user.lastname}','${user.email}','${user.password}')
+        INSERT INTO users (username,first_name, last_name, email,password)
+        VALUES ('${user.username}','${user.first_name}','${user.last_name}','${user.email}','${user.password}')
         RETURNING *;
     `
     )
     .then((dbRes) => {
-      console.log(dbRes[0][0]);
-      const { first_name, last_name, email, password, user_id } = dbRes[0][0];
+      const { first_name, last_name, email, password, id, username } =
+        dbRes[0][0];
       newUser = {
-        firstname: first_name,
-        lastname: last_name,
+        first_name: first_name,
+        last_name: last_name,
         email: email,
-        id: user_id,
+        id: id,
+        username: username,
       };
       console.log("newUser", newUser);
     })
-    .catch((error) => console.log(error));
+    .catch((error) => {
+      console.log(error);
+      if (error.name === "SequelizeUniqueConstraintError") {
+        let errDet = error.errors[0];
+        if (errDet.validatorKey === "not_unique") {
+          if (errDet.path === "email")
+            return { msg: "Email is not unique", code: "2" };
+          if (errDet.path === "username")
+            return { msg: "Username is not unique", code: "3" };
+        }
+      }
+      console.log(error);
+    });
+  //if we return an error then send it back up stack
+  if (sqlRes !== undefined) {
+    return sqlRes;
+  }
   return newUser;
 }
 

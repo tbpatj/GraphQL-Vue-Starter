@@ -9,11 +9,17 @@ const typeDefs = gql`
     token: String!
     user: User!
   }
+  type Error {
+    msg: String!
+    code: Int!
+  }
+  union UserResponse = AuthPayload | Error
   type Query {
     user(user_id: Int!): User
     allUsers: [User!]!
     me: User
   }
+
   type Mutation {
     registerUser(
       username: String
@@ -21,8 +27,8 @@ const typeDefs = gql`
       last_name: String
       email: String!
       password: String!
-    ): AuthPayload!
-    login(email: String!, password: String!): AuthPayload!
+    ): UserResponse
+    login(email: String!, password: String!): UserResponse
   }
 `;
 

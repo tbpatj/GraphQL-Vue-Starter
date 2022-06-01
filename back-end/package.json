@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "apollo-server": "^3.8.1",
+    "axios": "^0.27.2",
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.0.1",
     "graphql": "^16.5.0",
@@ -20,7 +21,7 @@
   },
   "scripts": {
     "migrate": " sequelize db:migrate",
-    "dev": "nodemon src/server --exec babel-node -e js",
+    "dev": "nodemon src/index",
     "start": "node src/index",
     "test": "echo \"Error: no test specified\" && exit 1",
     "seed": "node src/SQL/seed"

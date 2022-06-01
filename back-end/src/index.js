@@ -16,18 +16,25 @@ const getUser = (token) => {
     return null;
   }
 };
+console.log(process.env.ALLOWED_ORIGINS.split(","));
+
 const server = new ApolloServer({
   typeDefs,
   resolvers,
   context: ({ req }) => {
     const token = req.get("Authorization") || "";
-
-    return { user: getUser(token.replace("Bearer", "")) };
+    const clientIp = req.connection.remoteAddress;
+    // console.log(req);
+    return { user: getUser(token.replace("Bearer", "")), ip: clientIp };
+  },
+  // csrfPrevention: true, // see below for more about this
+  cors: {
+    credentials: true,
+    origin: process.env.ALLOWED_ORIGINS.split(","),
   },
   introspection: true,
   playground: true,
 });
-
 server.listen({ port: SERVER_PORT || 4000 }).then((url) => {
   console.log(`🚀 Server has launched on ${url}`);
 });
