@@ -1,3 +1,4 @@
+const axios = require("axios");
 const { sequelize } = require("./SQL");
 
 async function findUserById(userID) {
@@ -6,11 +7,12 @@ async function findUserById(userID) {
     .query(
       `
         SELECT * FROM users
-        WHERE user_id = '${userID}';
+        WHERE id = '${userID}';
     `
     )
     .then((dbRes) => {
       foundUser = dbRes[0][0];
+      console.log(foundUser);
     })
     .catch((error) => console.log(error));
   return foundUser;
@@ -45,17 +47,28 @@ async function getUsers() {
 }
 
 async function createUser(user) {
+  let picURL = await axios
+    .get("http://shibe.online/api/shibes?count=1&urls=true&httpsUrls=true")
+    .then((res) => {
+      console.log("picture");
+      console.log(res.data[0].trim());
+      return res.data[0].trim().split("\n")[0];
+    })
+    .catch((err) => {
+      console.log(err);
+      return "";
+    });
   let newUser;
   let sqlRes = await sequelize
     .query(
       `
-        INSERT INTO users (username,first_name, last_name, email,password)
-        VALUES ('${user.username}','${user.first_name}','${user.last_name}','${user.email}','${user.password}')
+        INSERT INTO users (username,first_name, last_name, email,password,ppurl)
+        VALUES ('${user.username}','${user.first_name}','${user.last_name}','${user.email}','${user.password}','${picURL}')
         RETURNING *;
     `
     )
     .then((dbRes) => {
-      const { first_name, last_name, email, password, id, username } =
+      const { first_name, last_name, email, password, id, username, ppurl } =
         dbRes[0][0];
       newUser = {
         first_name: first_name,
@@ -63,11 +76,11 @@ async function createUser(user) {
         email: email,
         id: id,
         username: username,
+        ppurl: ppurl,
       };
       console.log("newUser", newUser);
     })
     .catch((error) => {
-      console.log(error);
       if (error.name === "SequelizeUniqueConstraintError") {
         let errDet = error.errors[0];
         if (errDet.validatorKey === "not_unique") {

@@ -1,7 +1,7 @@
 const { sequelize } = require("./SQL");
 
-function seedDB() {
-  sequelize
+async function seedDB() {
+  await sequelize
     .query(
       `
     drop table if exists users;
@@ -13,7 +13,7 @@ function seedDB() {
         email varchar(80) NOT NULL UNIQUE,
         username varchar(40) NOT NULL UNIQUE,
         password varchar(80) NOT NULL,
-        ppurl varchar(40),
+        ppurl varchar(200),
         bio varchar(1000)
     );
 
@@ -24,5 +24,6 @@ function seedDB() {
       console.log("seeded");
     })
     .catch((err) => console.log(err));
+  process.exit();
 }
 seedDB();

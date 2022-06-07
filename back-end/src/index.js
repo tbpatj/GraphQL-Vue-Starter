@@ -16,9 +16,9 @@ const getUser = (token) => {
     return null;
   }
 };
-console.log(process.env.ALLOWED_ORIGINS.split(","));
 
 const server = new ApolloServer({
+  uri: "http://192.168.0.97:8080/",
   typeDefs,
   resolvers,
   context: ({ req }) => {
@@ -27,11 +27,14 @@ const server = new ApolloServer({
     // console.log(req);
     return { user: getUser(token.replace("Bearer", "")), ip: clientIp };
   },
-  // csrfPrevention: true, // see below for more about this
-  cors: {
-    credentials: true,
-    origin: process.env.ALLOWED_ORIGINS.split(","),
+  fetchOptions: {
+    mode: "no-cors",
   },
+  // csrfPrevention: true, // see below for more about this
+  // cors: {
+  //   credentials: true,
+  //   origin: process.env.ALLOWED_ORIGINS.split(","),
+  // },
   introspection: true,
   playground: true,
 });

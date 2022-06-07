@@ -11,7 +11,6 @@ const { findUserById, getUsers, createUser } = require("../SQL/user");
 const resolvers = {
   UserResponse: {
     __resolveType: (userRes) => {
-      console.log("hmmm running");
       if (userRes.token) {
         return "AuthPayload";
       } else if (userRes.code) {

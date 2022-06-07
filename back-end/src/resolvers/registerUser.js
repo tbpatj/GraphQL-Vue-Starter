@@ -7,7 +7,6 @@ async function registerUser(
   root,
   { username, email, password, first_name, last_name }
 ) {
-  console.log("hit");
   try {
     const user = await createUser({
       first_name,
