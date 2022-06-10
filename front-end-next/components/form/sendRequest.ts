@@ -5,10 +5,11 @@ import { setAnimFrame } from "../animLink";
 import { formStateManager, queryBody } from "./types";
 
 
-export function sendLoginRequest( body: queryBody,dispatch:DispatchWithoutAction, router){
-  axios
+export async function sendLoginRequest( body: queryBody,dispatch:DispatchWithoutAction, router){
+  await axios
       .post("http://192.168.0.97:4000/graphql", body)
       .then((data) => {
+        console.log(body);
         console.log(data);
         let info = data.data.data.login;
         if (info !== null && !info.code) {
@@ -16,8 +17,11 @@ export function sendLoginRequest( body: queryBody,dispatch:DispatchWithoutAction
           window.localStorage.setItem("token",info.token);
           setUser(dispatch,info.user);
           setAnimFrame(router,dispatch,"/")
+        } else {
+          console.log('failed');
         }
-      })
+      }).catch( (err) => console.log(err))
+    return true;
 }
 
 export default function sendRequest(formManage: formStateManager,setErrMsg: React.Dispatch<React.SetStateAction<string>>, body: queryBody,dispatch:DispatchWithoutAction, router) {

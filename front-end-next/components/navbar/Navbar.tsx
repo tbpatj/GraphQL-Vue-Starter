@@ -45,7 +45,10 @@ export default function () {
                     {myUser !== undefined && myUser !== null && <>
                         <button className={styles['unstyled-btn']} onFocus={() => setProfileDrawer(true)} onBlur={() => setProfileDrawer(false)}>
                             <div className={styles['avatar-container']}>
-                                <img className={styles['avatar']} src={`${myUser.ppurl}`}></img>
+                                <div className="avatar-container">
+                                    <img className="avatar" src={myUser.ppurl}></img>
+                                </div>
+                                {/* <img className={styles['avatar']} src={`${myUser.ppurl}`}></img> */}
 
                             </div>
                             <ProfileDrawer opened={profileDrawer} items={[

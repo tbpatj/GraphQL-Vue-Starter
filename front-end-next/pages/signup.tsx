@@ -56,7 +56,7 @@ export default function SignUp() {
           style={{ transition: `${animFinished ? '1s' : '1s'}`, transitionDelay: `${animFinished ? '' : '1s'}` }}
           className={`main-container ${process === 0 ? mounted ? 'opaque' : 'transparent' : process === 2 || process === 3 || process === 4 ? 'transparent' : ''}`}
         >
-          <div className="login-container">
+          <div className="login-container glass-background">
             <div className="login-header">
               <p>Sign Up</p>
               <hr className="seperator" />

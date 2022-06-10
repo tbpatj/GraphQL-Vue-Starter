@@ -24,12 +24,14 @@ export default function PageTransition({ children, startSVG, endSVG }: PageTrans
         <>
             {startSVG !== null && endSVG !== null &&
                 <>
-                    <div className='clip-background'></div>
-                    <svg className={`my-svg ${process === 0 || animation.state === -1 ? "my-svg-close" : ""}`} width="0" height="0" viewBox="0 0 1 0.47" style={{ zIndex: "100" }}>
-                        {display}
-                    </svg>
+                    <div className="background-container">
+                        <div className='clip-background'></div>
+                        <svg className={`my-svg ${process === 0 || animation.state === -1 ? "my-svg-close" : ""}`} width="0" height="0" viewBox="0 0 1 0.47" style={{ zIndex: "100" }}>
+                            {display}
+                        </svg>
+                    </div>
                 </>}
-            <div style={{ transition: `${process === 0 || process === 1 || animation.state === -1 ? "1s" : "0s"}` }} className={`main-container ${animation.state !== -1 && process > 0 ? 'opaque' : 'transparent'}`}>
+            <div className={`main-container ${animation.state !== -1 && process > 0 ? 'opaque' : 'transparent'}`}>
                 {children}
             </div>
         </>

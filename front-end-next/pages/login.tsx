@@ -5,7 +5,7 @@ import { returnLoginBody } from "../components/form/requestBody";
 import { sendLoginRequest } from "../components/form/sendRequest";
 import UseForm from "../components/form/useForm";
 import { DataContext } from "../components/mainContext/globalData";
-import { loginSVG, loginSVGEnd, loginSVGStart } from "../components/svgs/loginSVG"
+import { loginSVGEnd, loginSVGStart } from "../components/svgs/loginSVG"
 
 function LoginForm() {
     const { dispatch } = useContext(DataContext);
@@ -13,17 +13,17 @@ function LoginForm() {
     const formObj = UseForm();
     const { email, password, setData } = formObj;
 
-    function login(e) {
+    async function login(e) {
         e.preventDefault();
         let body = returnLoginBody(formObj);
-        sendLoginRequest(body, dispatch, router);
+        await sendLoginRequest(body, dispatch, router);
     }
 
     return (<>
         <div id="main-container"
             className={`main-container`}
         >
-            <div className="login-container dark">
+            <div className="login-container dark glass-background">
                 <div className="login-header dark">
                     <p>Log In</p>
                     <hr className="seperator" />

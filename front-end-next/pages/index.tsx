@@ -8,6 +8,12 @@ export default function Home() {
 
   return (
     <div className={styles.container}>
-      <PageTransition startSVG={mainStartSVG} endSVG={mainEndSVG}><>homepage</></PageTransition>
+      <PageTransition startSVG={mainStartSVG} endSVG={mainEndSVG}>
+        <div className='main-container flex-start'>
+          <div className='home-container glass-background'>
+
+          </div>
+        </div>
+      </PageTransition>
     </div>)
 }
