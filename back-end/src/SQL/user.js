@@ -27,7 +27,10 @@ async function findUserBy(field, value) {
     .then((dbRes) => {
       result = dbRes[0][0];
     })
-    .catch((error) => console.log(error));
+    .catch((error) => {
+      result = "error";
+      console.log(error);
+    });
   return result;
 }
 
@@ -62,8 +65,8 @@ async function createUser(user) {
   let sqlRes = await sequelize
     .query(
       `
-        INSERT INTO users (username,first_name, last_name, email,password,ppurl)
-        VALUES ('${user.username}','${user.first_name}','${user.last_name}','${user.email}','${user.password}','${picURL}')
+        INSERT INTO users (username,first_name, last_name, email,password,ppurl,pinged_ips)
+        VALUES ('${user.username}','${user.first_name}','${user.last_name}','${user.email}','${user.password}','${picURL}','${user.ip}')
         RETURNING *;
     `
     )

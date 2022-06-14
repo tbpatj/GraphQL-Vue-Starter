@@ -14,7 +14,9 @@ async function seedDB() {
         username varchar(40) NOT NULL UNIQUE,
         password varchar(80) NOT NULL,
         ppurl varchar(200),
-        bio varchar(1000)
+        bio varchar(1000),
+        created_date date not null default CURRENT_DATE,
+        pinged_ips varchar(1000)
     );
 
     

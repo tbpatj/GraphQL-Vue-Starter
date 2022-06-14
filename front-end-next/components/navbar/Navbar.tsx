@@ -23,7 +23,7 @@ export default function () {
             <div className={styles["nav-container"]}>
                 <div className={styles["page-link-container"]}>
                     <div className={styles["nav-item"]}><AnimLink href="/">Home</AnimLink></div>
-                    <div className={styles["nav-item"]}><AnimLink href="/">About</AnimLink></div>
+                    <div className={styles["nav-item"]}><AnimLink href="/users">Users</AnimLink></div>
                     <div className={styles["nav-item"]}><Link href={"/"}>Pricing</Link></div>
                     <div className={styles["nav-item"]}><Link href={"/"}>Pages</Link></div>
                 </div>

@@ -5,7 +5,8 @@ require("dotenv").config();
 
 async function registerUser(
   root,
-  { username, email, password, first_name, last_name }
+  { username, email, password, first_name, last_name },
+  { ip }
 ) {
   try {
     const user = await createUser({
@@ -14,6 +15,7 @@ async function registerUser(
       username,
       email,
       password: await bcrypt.hash(password, 10),
+      ip,
     });
     if (user !== undefined) {
       if (user.id) {

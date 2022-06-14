@@ -4,19 +4,27 @@ import PageTransition from "../components/animation/pageTransition";
 import { returnLoginBody } from "../components/form/requestBody";
 import { sendLoginRequest } from "../components/form/sendRequest";
 import UseForm from "../components/form/useForm";
+import FailureIcon from "../components/icons/failureIcon";
+import LoadingIcon from "../components/icons/loadingIcon";
 import { DataContext } from "../components/mainContext/globalData";
-import { loginSVGEnd, loginSVGStart } from "../components/svgs/loginSVG"
+import { loginSVGEnd, loginSVGStart } from "../resources/svgs/loginSVG"
 
 function LoginForm() {
     const { dispatch } = useContext(DataContext);
     const router = useRouter();
     const formObj = UseForm();
     const { email, password, setData } = formObj;
+    const [state, setState] = useState(0);
+
 
     async function login(e) {
+        setState(1);
         e.preventDefault();
         let body = returnLoginBody(formObj);
-        await sendLoginRequest(body, dispatch, router);
+        let loginStatus = await sendLoginRequest(body, dispatch, router);
+        console.log(loginStatus);
+        if (!loginStatus) setState(-1);
+        else setState(2);
     }
 
     return (<>
@@ -65,11 +73,21 @@ function LoginForm() {
                             <button type="submit" id="register-bttn" onClick={(e) => login(e)}>
                                 Log in
                             </button>
+                            {state === 1 &&
+                                <>
+                                    <LoadingIcon />
+                                </>}
+                            {state === -1 &&
+                                <>
+                                    <FailureIcon />
+
+                                    <div className="centered-text">Failed to Log in <br /> incorrect username/email, password</div>
+                                </>}
                         </div>
                     </form>
                 </div>
             </div>
-        </div>
+        </div >
     </>)
 }
 export default function Login() {

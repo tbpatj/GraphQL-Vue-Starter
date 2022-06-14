@@ -6,6 +6,7 @@ import { formStateManager, queryBody } from "./types";
 
 
 export async function sendLoginRequest( body: queryBody,dispatch:DispatchWithoutAction, router){
+  let returnResponse = false;
   await axios
       .post("http://192.168.0.97:4000/graphql", body)
       .then((data) => {
@@ -16,12 +17,17 @@ export async function sendLoginRequest( body: queryBody,dispatch:DispatchWithout
        
           window.localStorage.setItem("token",info.token);
           setUser(dispatch,info.user);
-          setAnimFrame(router,dispatch,"/")
+          setAnimFrame(router,dispatch,"/");
+          returnResponse = true;
         } else {
           console.log('failed');
+          returnResponse = false;
         }
-      }).catch( (err) => console.log(err))
-    return true;
+      }).catch( (err) => {
+        console.log(err);
+        returnResponse = false;
+      })
+    return returnResponse;
 }
 
 export default function sendRequest(formManage: formStateManager,setErrMsg: React.Dispatch<React.SetStateAction<string>>, body: queryBody,dispatch:DispatchWithoutAction, router) {

@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import PageTransition from "../components/animation/pageTransition";
 import { DataContext } from "../components/mainContext/globalData";
-import { profileStartSVG, profileEndSVG } from "../components/svgs/profileSVG"
+import { profileStartSVG, profileEndSVG } from "../resources/svgs/profileSVG"
 
 export default function Profile() {
 

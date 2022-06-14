@@ -4,7 +4,6 @@ export type inputFields = {
     password: string,
     firstname: string,
     lastname: string,
-    errors: Object,
     setData: (field: string, callbackVal: Function) => any;
   }
 export type queryBody = {

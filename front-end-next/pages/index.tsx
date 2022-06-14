@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 import { DataContext } from '../components/mainContext/globalData'
 import styles from '../styles/Home.module.css'
 import PageTransition from '../components/animation/pageTransition'
-import { mainStartSVG, mainEndSVG } from '../components/svgs/mainSVG';
+import { mainStartSVG, mainEndSVG } from '../resources/svgs/mainSVG';
 export default function Home() {
 
 
