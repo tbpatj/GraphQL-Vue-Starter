@@ -16,7 +16,7 @@ export async function getUser(dispatch) {
     const header = `Bearer${window.localStorage.getItem("token")}`;
     let body = meInfo();
     let response = await axios
-      .post("http://192.168.0.97:4000/graphql", body, {
+      .post(process.env.NEXT_PUBLIC_SERVER_HOST, body, {
         headers: { Authorization: header },
       })
       .then((res) => {

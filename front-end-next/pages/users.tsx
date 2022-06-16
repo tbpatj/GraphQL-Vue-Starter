@@ -1,7 +1,8 @@
+import Link from "next/link";
 import { useEffect, useState } from "react"
 import PageTransition from "../components/animation/pageTransition";
 import { useMovingSVG } from "../resources/svgs/usersSVG";
-import { queryAllUsers } from "../scripts/Queries/getUsers"
+import { queryAllUsers } from "../scripts/Queries/users"
 
 
 
@@ -30,12 +31,14 @@ export default function Users() {
                         {users.map((user, index) => {
                             return (<>
                                 <div className="row my-2 align-middle p-2" key={"userDisplay" + index}>
-                                    <div className="user-list-profile-container col-1 p-0 my-auto">
-                                        <div className="avatar-container ">
-                                            <img className="avatar" src={user.ppurl}></img>
+                                    <Link href={`/users/${user.id}`}>
+                                        <div className="user-list-profile-container col-1 p-0 my-auto">
+                                            <div className="avatar-container ">
+                                                <img className="avatar" src={user.ppurl}></img>
 
+                                            </div>
                                         </div>
-                                    </div>
+                                    </Link>
                                     <div className="h-50 col-5 align-middle my-auto">
                                         <p className="m-0">{user.first_name} {user.last_name}</p>
                                         <p className="m-0"><small>@{user.username}</small></p>

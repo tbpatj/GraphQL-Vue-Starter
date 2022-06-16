@@ -1,0 +1,10 @@
+code - Error
+
+
+1 - Can't create in db
+2 - Email is not unique
+3 - Username is not unique
+4 - Can't find user with supplied email or username
+5 - Password validation did not authenticate
+6 - User is not authenticated
+7 - Not enough supplied fields

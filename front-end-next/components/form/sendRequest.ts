@@ -8,7 +8,7 @@ import { formStateManager, queryBody } from "./types";
 export async function sendLoginRequest( body: queryBody,dispatch:DispatchWithoutAction, router){
   let returnResponse = false;
   await axios
-      .post("http://192.168.0.97:4000/graphql", body)
+      .post(process.env.NEXT_PUBLIC_SERVER_HOST, body)
       .then((data) => {
         console.log(body);
         console.log(data);
@@ -33,7 +33,7 @@ export async function sendLoginRequest( body: queryBody,dispatch:DispatchWithout
 export default function sendRequest(formManage: formStateManager,setErrMsg: React.Dispatch<React.SetStateAction<string>>, body: queryBody,dispatch:DispatchWithoutAction, router) {
     
     axios
-      .post("http://192.168.0.97:4000/graphql", body)
+      .post(process.env.NEXT_PUBLIC_SERVER_HOST, body)
       .then((data) => {
         let info = data.data.data.registerUser;
         if (info !== null && !info.code) {

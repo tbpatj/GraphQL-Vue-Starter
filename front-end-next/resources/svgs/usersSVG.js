@@ -53,11 +53,11 @@ export function useMovingSVG() {
   // create the boxes
   useEffect(() => {
     let myBoxes = [];
-    for (let i = 0; i < Math.random() * 2 + 50; i++) {
+    for (let i = 0; i < Math.random() * 2 + 80; i++) {
       let box = createBox(
         Math.random(),
         Math.random() * 0.45,
-        Math.random() / 30 + 0.002,
+        Math.random() / 25 + 0.002,
         Math.random() * 0.004 - 0.002,
         Math.random() * 0.004 - 0.002,
         Math.random() * 0.2 - 0.1
